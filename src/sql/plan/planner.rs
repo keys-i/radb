@@ -255,7 +255,7 @@ impl<'a, C: Catalog> Planner<'a, C> {
     }
 
     /// Builds a FROM clause consisting of several items. Each item is either a single table or a
-    /// join of an arbitrary number of tables. All of the items are joined, since e.g. 'SELECT * FROM
+    /// join of an arbitrary number of tables. All the items are joined, since e.g. 'SELECT * FROM
     /// a, b' is an implicit join of a and b.
     fn build_from_clause(&self, scope: &mut Scope, from: Vec<ast::FromItem>) -> Result<Node> {
         let base_scope = scope.clone();
