@@ -243,6 +243,7 @@ impl Log {
             .read(true)
             .write(true)
             .create(true)
+            .append(true)
             .open(&path)?;
         file.try_lock_exclusive()?;
         Ok(Self { path, file })
