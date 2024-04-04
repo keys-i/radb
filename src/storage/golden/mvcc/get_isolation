@@ -95,4 +95,3 @@ Version("d", 3) = 0x03
 Version("e", 1) = 0x01
 Version("e", 3) = None
 Version("f", 3) = 0x03
-Version("f", 3) = 0x03

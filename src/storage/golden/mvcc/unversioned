@@ -1,54 +1,59 @@
+T_: set unversioned "a" = 0x00
+    set Unversioned("a") = 0x00
+
 T1: begin → v1 read-write active={}
     set NextVersion = 2
     set TxnActive(1) = []
-
-T2: begin → v2 read-write active={1}
-    set NextVersion = 3
-    set TxnActiveSnapshot(2) = {1}
-    set TxnActive(2) = []
-
-T3: begin → v3 read-write active={1,2}
-    set NextVersion = 4
-    set TxnActiveSnapshot(3) = {1,2}
-    set TxnActive(3) = []
-
-T4: begin → v4 read-write active={1,2,3}
-    set NextVersion = 5
-    set TxnActiveSnapshot(4) = {1,2,3}
-    set TxnActive(4) = []
 
 T1: set "a" = 0x01
     set TxnWrite(1, "a") = []
     set Version("a", 1) = 0x01
 
-T3: set "c" = 0x03
-    set TxnWrite(3, "c") = []
-    set Version("c", 3) = 0x03
+T1: set "b" = 0x01
+    set TxnWrite(1, "b") = []
+    set Version("b", 1) = 0x01
 
-T4: set "d" = 0x04
-    set TxnWrite(4, "d") = []
-    set Version("d", 4) = 0x04
+T1: set "c" = 0x01
+    set TxnWrite(1, "c") = []
+    set Version("c", 1) = 0x01
 
-T4: commit
-    del TxnWrite(4, "d")
-    del TxnActive(4)
+T1: commit
+    del TxnWrite(1, "a")
+    del TxnWrite(1, "b")
+    del TxnWrite(1, "c")
+    del TxnActive(1)
 
-T2: set "a" = 0x02 → Error::Serialization
+T_: set unversioned "b" = 0x00
+    set Unversioned("b") = 0x00
 
-T2: set "c" = 0x02 → Error::Serialization
+T_: set unversioned "d" = 0x00
+    set Unversioned("d") = 0x00
 
-T2: set "d" = 0x02 → Error::Serialization
+T2: begin read-only → v2 read-only active={}
+
+T2: scan ..
+    "a" = 0x01
+    "b" = 0x01
+    "c" = 0x01
+
+T_: get unversioned "a" → 0x00
+
+T_: get unversioned "b" → 0x00
+
+T_: get unversioned "c" → None
+
+T_: get unversioned "d" → 0x00
+
+T_: set unversioned "a" = 0x01
+    set Unversioned("a") = 0x01
+
+T_: get unversioned "a" → 0x01
 
 Engine state:
-NextVersion = 5
-TxnActive(1) = []
-TxnActive(2) = []
-TxnActive(3) = []
-TxnActiveSnapshot(2) = {1}
-TxnActiveSnapshot(3) = {1,2}
-TxnActiveSnapshot(4) = {1,2,3}
-TxnWrite(1, "a") = []
-TxnWrite(3, "c") = []
+NextVersion = 2
 Version("a", 1) = 0x01
-Version("c", 3) = 0x03
-Version("d", 4) = 0x04
+Version("b", 1) = 0x01
+Version("c", 1) = 0x01
+Unversioned("a") = 0x01
+Unversioned("b") = 0x00
+Unversioned("d") = 0x00

@@ -1,6 +1,6 @@
 //! KeyCode is a lexicographical order-preserving binary encoding for use with
 //! keys. It is designed for simplicity, not efficiency (i.e. it does not use
-//! varints or other compression methods).
+//! variants or other compression methods).
 //!
 //! Ordering is important because it allows limited scans across specific parts
 //! of the keyspace, e.g. scanning an individual table or using an index range
@@ -29,7 +29,7 @@
 //! SQL Value enums are encoded according to the above scheme, i.e. a single
 //! byte identifying the enum variant by index, then the primitive value.
 //!
-//! The canonical key reprentation is an enum -- for example:
+//! The canonical key representation is an enum -- for example:
 //!
 //! ```
 //! #[derive(Debug, Deserialize, Serialize)]
@@ -104,7 +104,7 @@ impl<'a> serde::Serializer for &'a mut Serializer {
         unimplemented!()
     }
 
-    /// i64 uses the big-endian two's completement encoding, but flips the
+    /// i64 uses the big-endian two's complement encoding, but flips the
     /// left-most sign bit such that negative numbers are ordered before
     /// positive numbers.
     ///

@@ -1,29 +1,22 @@
-entry = 0, offset 0
-klen  = 0 [0, 0, 0, 0]
-vlen  = 0 [0, 0, 0, 0]
-key   = "" []
-value = "" []
+T1: begin → v1 read-write active={}
+    set NextVersion = 2
+    set TxnActive(1) = []
 
-entry = 1, offset 8
-klen  = 1 [0, 0, 0, 1]
-vlen  = 1 [0, 0, 0, 1]
-key   = "a" [61]
-value = [1]
+T1: set "key" = 0x01
+    set TxnWrite(1, "key") = []
+    set Version("key", 1) = 0x01
 
-entry = 2, offset 18
-klen  = 1 [0, 0, 0, 1]
-vlen  = 1 [0, 0, 0, 1]
-key   = "b" [62]
-value = [2]
+T2: begin → v2 read-write active={1}
+    set NextVersion = 3
+    set TxnActiveSnapshot(2) = {1}
+    set TxnActive(2) = []
 
-entry = 3, offset 28
-klen  = 1 [0, 0, 0, 1]
-vlen  = 1 [0, 0, 0, 1]
-key   = "c" [63]
-value = [3]
+T2: get "key" → None
 
-entry = 4, offset 38
-klen  = 1 [0, 0, 0, 1]
-vlen  = 1 [0, 0, 0, 1]
-key   = "d" [64]
-value = [4]
+Engine state:
+NextVersion = 3
+TxnActive(1) = []
+TxnActive(2) = []
+TxnActiveSnapshot(2) = {1}
+TxnWrite(1, "key") = []
+Version("key", 1) = 0x01
