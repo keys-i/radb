@@ -12,26 +12,26 @@
 //!
 //! KeyCode supports a subset of primitive data types, encoded as follows:
 //!
-//! bool:    0x00 for false, 0x01 for true.
-//! u64:     Big-endian binary representation.
-//! i64:     Big-endian binary representation, with sign bit flipped.
-//! f64:     Big-endian binary representation, with sign bit flipped, and rest if negative.
-//! Vec<u8>: 0x00 is escaped as 0x00ff, terminated with 0x0000.
-//! String:  Like Vec<u8>.
+//! - bool:    0x00 for false, 0x01 for true.
+//! - u64:     Big-endian binary representation.
+//! - i64:     Big-endian binary representation, with sign bit flipped.
+//! - f64:     Big-endian binary representation, with sign bit flipped, and rest if negative.
+//! - Vec<u8>: 0x00 is escaped as 0x00ff, terminated with 0x0000.
+//! - String:  Like Vec<u8>.
 //!
 //! Additionally, several container types are supported:
 //!
-//! Tuple:  Concatenation of elements, with no surrounding structure.
-//! Array:  Like tuple.
-//! Vec:    Like tuple.
-//! Enum:   The variant's enum index as a single u8 byte.
+//! - Tuple:  Concatenation of elements, with no surrounding structure.
+//! - Array:  Like tuple.
+//! - Vec:    Like tuple.
+//! - Enum:   The variant's enum index as a single u8 byte.
 //!
 //! SQL Value enums are encoded according to the above scheme, i.e. a single
 //! byte identifying the enum variant by index, then the primitive value.
 //!
 //! The canonical key representation is an enum -- for example:
 //!
-//! ```
+//! ```rs
 //! #[derive(Debug, Deserialize, Serialize)]
 //! enum Key {
 //!     Foo,
@@ -43,6 +43,7 @@
 //! Unfortunately, byte vectors and slices such as Vec<u8> must be wrapped with
 //! serde_bytes::ByteBuf or use the #[serde(with="serde_bytes")] attribute. See
 //! https://github.com/serde-rs/bytes
+
 
 use de::IntoDeserializer;
 use serde::{de, ser};
