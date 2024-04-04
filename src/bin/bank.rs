@@ -3,7 +3,7 @@
  *
  * - Connect to the given raDB hosts (-H default 127.0.0.1:9605, can give multiple)
  * - Create C customers (-C default 100)
- * - Create a accounts per customer with initial balance 100 (-a default 10)
+ * - Create an account per customer with initial balance 100 (-a default 10)
  * - Spawn c concurrent workers (-c default 8)
  * - Queue t transactions between two random customers (-t default 1000)
  *   - Begin a new transaction

@@ -1,30 +1,17 @@
-# Initial build.
-FROM rust:1.77-slim AS build
+# Use an official Rust runtime as a parent image
+FROM rust:latest
 
-# For Apple silicon Macs: --build-arg TARGET=aarch64-unknown-linux-musl
-ARG TARGET=x86_64-unknown-linux-musl
-RUN apt-get -q update && apt-get -q install -y musl-dev
-RUN rustup target add $TARGET
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-# FIXME: cargo does not have an option to only build dependencies, so we build
-# a dummy main.rs. See: https://github.com/rust-lang/cargo/issues/2644
-WORKDIR /usr/src/radb
-
-COPY Cargo.toml Cargo.lock ./
-RUN mkdir src \
-    && echo "fn main() {}" >src/main.rs \
-    && echo "" >src/lib.rs \
-    && echo "fn main() {}" >build.rs
-RUN cargo fetch --target=$TARGET
-RUN cargo build --release --target=$TARGET \
-    && rm -rf build.rs src target/$TARGET/release/radb*
-
+# Copy the entire source code to the working directory
 COPY . .
-RUN cargo install --bin radb --locked --offline --path . --target=$TARGET
 
-# Runtime image.
-FROM alpine:3.19
-COPY --from=build /usr/local/cargo/bin/radb /usr/local/bin/radb
-COPY --from=build /usr/src/radb/config/radb.yaml /etc/radb.yaml
-RUN sed -i -e 's|data_dir:.*|data_dir: /var/lib/radb|g' /etc/radb.yaml
-CMD ["radb", "-c", "/etc/radb.yaml"]
+# Build the application inside the container
+RUN cargo build --release --bin radb
+
+# Expose the port on which your application will listen
+EXPOSE 9700
+
+# Run the application when the container starts
+CMD ["target/release/radb", "-c", "/usr/src/app/clusters/docker/clusters/docker/radb${ID}/radb.yaml"]

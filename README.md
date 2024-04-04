@@ -58,17 +58,17 @@ raDB supports most common SQL features, including joins, aggregates, and ACID tr
 
 ## Architecture
 
-[![raDB architecture](docs/images/architecture.svg)](../docs/architecture.md)
+[![raDB architecture](docs/images/architecture.svg)](./docs/architecture.md)
 
 raDB's architecture is fairly typical for distributed SQL databases: a transactional
 key/value store managed by a Raft cluster with a SQL query engine on top. See the
-[architecture guide](../docs/architecture.md) for more details.
+[architecture guide](./docs/architecture.md) for more details.
 
 ## Tests
 
 raDB has decent test coverage, with about a thousand tests of core functionality. These consist
 of in-code unit-tests for many low-level components, golden master integration tests of the SQL
-engine under [`tests/sql`](../tests/sql), and a
+engine under [`tests/sql`](./tests/sql), and a
 basic set of end-to-end cluster tests under
 [`tests/`](../tests).
 [Jepsen tests](https://jepsen.io), or similar system-wide correctness and reliability tests, are 

@@ -150,7 +150,7 @@ Additionally, several container types are supported:
 * Value: like enum.
 
 The default key/value engine is
-[`storage::engine::BitCask`](../src/storage/kv/bitcask.rs),
+[`storage::engine::BitCask`](../src/storage/engine/bitcask.rs),
 a very simple variant of Bitcask, an append-only log-structured storage engine.
 All writes are appended to a log file, with an index mapping live keys to file
 positions maintained in memory.  When the amount of garbage (replaced or deleted
@@ -728,7 +728,7 @@ The SQL server spawns a new Tokio task for each SQL client that connects, runnin
 SQL session from the SQL storage engine on top of Raft. It communicates with the client by passing
 `server::Request` and `server::Response` messages that are translated to `sql::Session` calls.
 
-The main [`raDB`](../src/bin/raDB.rs) binary
+The main [`raDB`](../src/bin/radb.rs) binary
 simply initializes a raDB server based on command-line arguments and configuration files, and then 
 runs it via the Tokio runtime.
 
