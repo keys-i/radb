@@ -44,7 +44,6 @@
 //! serde_bytes::ByteBuf or use the #[serde(with="serde_bytes")] attribute. See
 //! https://github.com/serde-rs/bytes
 
-
 use de::IntoDeserializer;
 use serde::{de, ser};
 

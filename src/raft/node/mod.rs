@@ -430,7 +430,7 @@ mod tests {
             Box::new(TestState::new(0)),
             node_tx,
         )
-            .await?;
+        .await?;
         match node {
             Node::Follower(rolenode) => {
                 assert_eq!(rolenode.id, 1);
@@ -503,7 +503,7 @@ mod tests {
             Box::new(TestState::new(0)),
             node_tx,
         )
-            .await?;
+        .await?;
         match node {
             Node::Leader(rolenode) => {
                 assert_eq!(rolenode.id, 1);

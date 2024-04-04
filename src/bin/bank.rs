@@ -18,13 +18,13 @@
 #![warn(clippy::all)]
 
 use futures::stream::TryStreamExt as _;
+use radb::client::Pool;
+use radb::error::{Error, Result};
 use rand::distributions::Distribution;
 use rand::Rng as _;
 use std::cell::Cell;
 use std::rc::Rc;
 use tokio::net::ToSocketAddrs;
-use radb::client::Pool;
-use radb::error::{Error, Result};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -70,9 +70,9 @@ async fn main() -> Result<()> {
         *args.get_one("customers").unwrap(),
         *args.get_one("accounts").unwrap(),
     )
-        .await?
-        .run(*args.get_one("transactions").unwrap())
-        .await
+    .await?
+    .run(*args.get_one("transactions").unwrap())
+    .await
 }
 
 struct Bank {
@@ -253,12 +253,12 @@ impl Bank {
                         "UPDATE account SET balance = balance - {} WHERE id = {}",
                         amount, from_account,
                     ))
-                        .await?;
+                    .await?;
                     txn.execute(&format!(
                         "UPDATE account SET balance = balance + {} WHERE id = {}",
                         amount, to_account,
                     ))
-                        .await?;
+                    .await?;
                     Ok((from_account, to_account, amount))
                 }
             })

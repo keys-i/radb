@@ -564,12 +564,12 @@ impl<'a, C: Catalog> Planner<'a, C> {
                         self.build_expression(scope, *lhs.clone())?.into(),
                         self.build_expression(scope, *rhs.clone())?.into(),
                     )
-                        .into(),
+                    .into(),
                     Equal(
                         self.build_expression(scope, *lhs)?.into(),
                         self.build_expression(scope, *rhs)?.into(),
                     )
-                        .into(),
+                    .into(),
                 ),
                 ast::Operation::IsNull(expr) => IsNull(self.build_expression(scope, *expr)?.into()),
                 ast::Operation::LessThan(lhs, rhs) => LessThan(
@@ -581,12 +581,12 @@ impl<'a, C: Catalog> Planner<'a, C> {
                         self.build_expression(scope, *lhs.clone())?.into(),
                         self.build_expression(scope, *rhs.clone())?.into(),
                     )
-                        .into(),
+                    .into(),
                     Equal(
                         self.build_expression(scope, *lhs)?.into(),
                         self.build_expression(scope, *rhs)?.into(),
                     )
-                        .into(),
+                    .into(),
                 ),
                 ast::Operation::Like(lhs, rhs) => Like(
                     self.build_expression(scope, *lhs)?.into(),
@@ -596,7 +596,7 @@ impl<'a, C: Catalog> Planner<'a, C> {
                     self.build_expression(scope, *lhs)?.into(),
                     self.build_expression(scope, *rhs)?.into(),
                 )
-                    .into()),
+                .into()),
 
                 // Mathematical operators
                 ast::Operation::Assert(expr) => Assert(self.build_expression(scope, *expr)?.into()),

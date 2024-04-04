@@ -530,7 +530,7 @@ impl<E: Engine> Transaction<E> {
             key.into(),
             self.st.active.iter().min().copied().unwrap_or(self.st.version + 1),
         )
-            .encode()?;
+        .encode()?;
         let to = Key::Version(key.into(), u64::MAX).encode()?;
         if let Some((key, _)) = session.scan(from..=to).last().transpose()? {
             match Key::decode(&key)? {

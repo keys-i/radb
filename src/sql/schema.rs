@@ -89,8 +89,8 @@ impl Table {
                 .position(|c| c.primary_key)
                 .ok_or_else(|| Error::Value("Primary key not found".into()))?,
         )
-            .cloned()
-            .ok_or_else(|| Error::Value("Primary key value not found for row".into()))
+        .cloned()
+        .ok_or_else(|| Error::Value("Primary key value not found for row".into()))
     }
 
     /// Validates the table schema

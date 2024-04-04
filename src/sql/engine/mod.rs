@@ -149,8 +149,8 @@ impl<E: Engine + 'static> Session<E> {
     ///
     /// TODO: reconsider this
     pub fn read_with_txn<R, F>(&mut self, f: F) -> Result<R>
-        where
-            F: FnOnce(&mut E::Transaction) -> Result<R>,
+    where
+        F: FnOnce(&mut E::Transaction) -> Result<R>,
     {
         if let Some(ref mut txn) = self.txn {
             return f(txn);

@@ -129,9 +129,9 @@ pub enum Node {
 impl Node {
     /// Recursively transforms nodes by applying functions before and after descending.
     pub fn transform<B, A>(mut self, before: &B, after: &A) -> Result<Self>
-        where
-            B: Fn(Self) -> Result<Self>,
-            A: Fn(Self) -> Result<Self>,
+    where
+        B: Fn(Self) -> Result<Self>,
+        A: Fn(Self) -> Result<Self>,
     {
         self = before(self)?;
         self = match self {
@@ -189,9 +189,9 @@ impl Node {
 
     /// Transforms all expressions in a node by calling .transform() on them with the given closure.
     pub fn transform_expressions<B, A>(self, before: &B, after: &A) -> Result<Self>
-        where
-            B: Fn(Expression) -> Result<Expression>,
-            A: Fn(Expression) -> Result<Expression>,
+    where
+        B: Fn(Expression) -> Result<Expression>,
+        A: Fn(Expression) -> Result<Expression>,
     {
         Ok(match self {
             n @ Self::Aggregation { .. }

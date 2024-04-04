@@ -5,15 +5,14 @@
 
 #![warn(clippy::all)]
 
-use rustyline::history::DefaultHistory;
-use rustyline::validate::{ValidationContext, ValidationResult, Validator};
-use rustyline::{error::ReadlineError, Editor, Modifiers};
-use rustyline_derive::{Completer, Helper, Highlighter, Hinter};
 use radb::error::{Error, Result};
 use radb::sql::execution::ResultSet;
 use radb::sql::parser::{Lexer, Token};
 use radb::Client;
-
+use rustyline::history::DefaultHistory;
+use rustyline::validate::{ValidationContext, ValidationResult, Validator};
+use rustyline::{error::ReadlineError, Editor, Modifiers};
+use rustyline_derive::{Completer, Helper, Highlighter, Hinter};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -37,8 +36,7 @@ async fn main() -> Result<()> {
         .get_matches();
 
     let mut rasql =
-        RaSQL::new(opts.get_one::<String>("host").unwrap(), *opts.get_one("port").unwrap())
-            .await?;
+        RaSQL::new(opts.get_one::<String>("host").unwrap(), *opts.get_one("port").unwrap()).await?;
 
     if let Some(command) = opts.get_one::<&str>("command") {
         rasql.execute(command).await
@@ -141,13 +139,13 @@ Storage:   {keys} keys, {logical_size} MB logical, {nodes}x {disk_size} MB disk,
                     applied = status.raft.apply_index,
                     raft_storage = status.raft.storage,
                     raft_size =
-                    format_args!("{:.3}", status.raft.storage_size as f64 / 1000.0 / 1000.0),
+                        format_args!("{:.3}", status.raft.storage_size as f64 / 1000.0 / 1000.0),
                     logs = node_logs.join(" "),
                     versions = status.mvcc.versions,
                     active_txns = status.mvcc.active_txns,
                     keys = status.mvcc.storage.keys,
                     logical_size =
-                    format_args!("{:.3}", status.mvcc.storage.size as f64 / 1000.0 / 1000.0),
+                        format_args!("{:.3}", status.mvcc.storage.size as f64 / 1000.0 / 1000.0),
                     garbage_percent = format_args!(
                         "{:.0}",
                         if status.mvcc.storage.total_disk_size > 0 {

@@ -127,16 +127,16 @@ impl Client {
     /// Runs a query in a transaction, automatically retrying serialization failures with
     /// exponential backoff.
     pub async fn with_txn<W, F, R>(&self, mut with: W) -> Result<R>
-        where
-            W: FnMut(Client) -> F,
-            F: Future<Output = Result<R>>,
+    where
+        W: FnMut(Client) -> F,
+        F: Future<Output = Result<R>>,
     {
         for i in 0..WITH_TXN_RETRIES {
             if i > 0 {
                 tokio::time::sleep(std::time::Duration::from_millis(
                     2_u64.pow(i as u32 - 1) * rand::thread_rng().gen_range(25..=75),
                 ))
-                    .await;
+                .await;
             }
             let result = async {
                 self.execute("BEGIN").await?;
@@ -144,7 +144,7 @@ impl Client {
                 self.execute("COMMIT").await?;
                 Ok(result)
             }
-                .await;
+            .await;
             if result.is_err() {
                 self.execute("ROLLBACK").await.ok();
                 if matches!(result, Err(Error::Serialization) | Err(Error::Abort)) {
@@ -170,9 +170,9 @@ impl Pool {
             std::iter::from_fn(|| {
                 Some(Client::new(addrs.next().unwrap()).map(|r| r.map(Mutex::new)))
             })
-                .take(size as usize),
+            .take(size as usize),
         )
-            .await?;
+        .await?;
         Ok(Self { clients })
     }
 

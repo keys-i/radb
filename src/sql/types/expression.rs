@@ -250,7 +250,7 @@ impl Expression {
                             .replace('_', ".")
                             .replace("..", "_")
                     ))?
-                        .is_match(&lhs),
+                    .is_match(&lhs),
                 ),
                 (String(_), Null) => Null,
                 (Null, String(_)) => Null,
@@ -276,9 +276,9 @@ impl Expression {
 
     /// Transforms the expression tree by applying a closure before and after descending.
     pub fn transform<B, A>(mut self, before: &B, after: &A) -> Result<Self>
-        where
-            B: Fn(Self) -> Result<Self>,
-            A: Fn(Self) -> Result<Self>,
+    where
+        B: Fn(Self) -> Result<Self>,
+        A: Fn(Self) -> Result<Self>,
     {
         self = before(self)?;
         match &mut self {
@@ -313,27 +313,27 @@ impl Expression {
     pub fn walk<F: Fn(&Expression) -> bool>(&self, visitor: &F) -> bool {
         visitor(self)
             && match self {
-            Self::Add(lhs, rhs)
-            | Self::And(lhs, rhs)
-            | Self::Divide(lhs, rhs)
-            | Self::Equal(lhs, rhs)
-            | Self::Exponentiate(lhs, rhs)
-            | Self::GreaterThan(lhs, rhs)
-            | Self::LessThan(lhs, rhs)
-            | Self::Like(lhs, rhs)
-            | Self::Modulo(lhs, rhs)
-            | Self::Multiply(lhs, rhs)
-            | Self::Or(lhs, rhs)
-            | Self::Subtract(lhs, rhs) => lhs.walk(visitor) && rhs.walk(visitor),
+                Self::Add(lhs, rhs)
+                | Self::And(lhs, rhs)
+                | Self::Divide(lhs, rhs)
+                | Self::Equal(lhs, rhs)
+                | Self::Exponentiate(lhs, rhs)
+                | Self::GreaterThan(lhs, rhs)
+                | Self::LessThan(lhs, rhs)
+                | Self::Like(lhs, rhs)
+                | Self::Modulo(lhs, rhs)
+                | Self::Multiply(lhs, rhs)
+                | Self::Or(lhs, rhs)
+                | Self::Subtract(lhs, rhs) => lhs.walk(visitor) && rhs.walk(visitor),
 
-            Self::Assert(expr)
-            | Self::Factorial(expr)
-            | Self::IsNull(expr)
-            | Self::Negate(expr)
-            | Self::Not(expr) => expr.walk(visitor),
+                Self::Assert(expr)
+                | Self::Factorial(expr)
+                | Self::IsNull(expr)
+                | Self::Negate(expr)
+                | Self::Not(expr) => expr.walk(visitor),
 
-            Self::Constant(_) | Self::Field(_, _) => true,
-        }
+                Self::Constant(_) | Self::Field(_, _) => true,
+            }
     }
 
     /// Converts the expression into its negation normal form. This pushes NOT operators into the
@@ -354,7 +354,7 @@ impl Expression {
             },
             &Ok,
         )
-            .unwrap()
+        .unwrap()
     }
 
     /// Converts the expression into conjunctive normal form, i.e. an AND of ORs. This is done by
@@ -513,7 +513,7 @@ impl Expression {
                 })
                 .collect(),
         )
-            .unwrap()
+        .unwrap()
     }
 }
 
