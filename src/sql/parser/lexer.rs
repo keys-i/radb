@@ -443,31 +443,31 @@ impl<'a> Lexer<'a> {
             ';' => Some(Token::Semicolon),
             _ => None,
         })
-            .map(|token| match token {
-                Token::Exclamation => {
-                    if self.next_if(|c| c == '=').is_some() {
-                        Token::NotEqual
-                    } else {
-                        token
-                    }
+        .map(|token| match token {
+            Token::Exclamation => {
+                if self.next_if(|c| c == '=').is_some() {
+                    Token::NotEqual
+                } else {
+                    token
                 }
-                Token::LessThan => {
-                    if self.next_if(|c| c == '>').is_some() {
-                        Token::LessOrGreaterThan
-                    } else if self.next_if(|c| c == '=').is_some() {
-                        Token::LessThanOrEqual
-                    } else {
-                        token
-                    }
+            }
+            Token::LessThan => {
+                if self.next_if(|c| c == '>').is_some() {
+                    Token::LessOrGreaterThan
+                } else if self.next_if(|c| c == '=').is_some() {
+                    Token::LessThanOrEqual
+                } else {
+                    token
                 }
-                Token::GreaterThan => {
-                    if self.next_if(|c| c == '=').is_some() {
-                        Token::GreaterThanOrEqual
-                    } else {
-                        token
-                    }
+            }
+            Token::GreaterThan => {
+                if self.next_if(|c| c == '=').is_some() {
+                    Token::GreaterThanOrEqual
+                } else {
+                    token
                 }
-                _ => token,
-            })
+            }
+            _ => token,
+        })
     }
 }

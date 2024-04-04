@@ -4,13 +4,13 @@
 
 #![warn(clippy::all)]
 
-use serde_derive::Deserialize;
-use std::collections::HashMap;
 use radb::error::{Error, Result};
 use radb::{raft, sql, storage, Server};
+use serde_derive::Deserialize;
+use std::collections::HashMap;
 
 #[tokio::main]
-async fn main() -> Result<()>{
+async fn main() -> Result<()> {
     let args = clap::command!()
         .arg(
             clap::Arg::new("config")

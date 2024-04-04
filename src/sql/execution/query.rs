@@ -32,7 +32,7 @@ impl<T: Transaction> Executor<T> for Filter<T> {
                             value
                         ))),
                     })
-                        .transpose()
+                    .transpose()
                 })),
             })
         } else {

@@ -175,9 +175,9 @@ impl Expression {
 
     /// Transforms the expression tree by applying a closure before and after descending.
     pub fn transform<B, A>(mut self, before: &mut B, after: &mut A) -> Result<Self>
-        where
-            B: FnMut(Self) -> Result<Self>,
-            A: FnMut(Self) -> Result<Self>,
+    where
+        B: FnMut(Self) -> Result<Self>,
+        A: FnMut(Self) -> Result<Self>,
     {
         use Operation::*;
         self = before(self)?;
@@ -222,9 +222,9 @@ impl Expression {
 
     /// Transforms an expression using a mutable reference.
     pub fn transform_mut<B, A>(&mut self, before: &mut B, after: &mut A) -> Result<()>
-        where
-            B: FnMut(Self) -> Result<Self>,
-            A: FnMut(Self) -> Result<Self>,
+    where
+        B: FnMut(Self) -> Result<Self>,
+        A: FnMut(Self) -> Result<Self>,
     {
         self.replace_with(|e| e.transform(before, after))
     }
@@ -234,38 +234,38 @@ impl Expression {
         use Operation::*;
         visitor(self)
             && match self {
-            Self::Operation(Add(lhs, rhs))
-            | Self::Operation(And(lhs, rhs))
-            | Self::Operation(Divide(lhs, rhs))
-            | Self::Operation(Equal(lhs, rhs))
-            | Self::Operation(Exponentiate(lhs, rhs))
-            | Self::Operation(GreaterThan(lhs, rhs))
-            | Self::Operation(GreaterThanOrEqual(lhs, rhs))
-            | Self::Operation(LessThan(lhs, rhs))
-            | Self::Operation(LessThanOrEqual(lhs, rhs))
-            | Self::Operation(Like(lhs, rhs))
-            | Self::Operation(Modulo(lhs, rhs))
-            | Self::Operation(Multiply(lhs, rhs))
-            | Self::Operation(NotEqual(lhs, rhs))
-            | Self::Operation(Or(lhs, rhs))
-            | Self::Operation(Subtract(lhs, rhs)) => lhs.walk(visitor) && rhs.walk(visitor),
+                Self::Operation(Add(lhs, rhs))
+                | Self::Operation(And(lhs, rhs))
+                | Self::Operation(Divide(lhs, rhs))
+                | Self::Operation(Equal(lhs, rhs))
+                | Self::Operation(Exponentiate(lhs, rhs))
+                | Self::Operation(GreaterThan(lhs, rhs))
+                | Self::Operation(GreaterThanOrEqual(lhs, rhs))
+                | Self::Operation(LessThan(lhs, rhs))
+                | Self::Operation(LessThanOrEqual(lhs, rhs))
+                | Self::Operation(Like(lhs, rhs))
+                | Self::Operation(Modulo(lhs, rhs))
+                | Self::Operation(Multiply(lhs, rhs))
+                | Self::Operation(NotEqual(lhs, rhs))
+                | Self::Operation(Or(lhs, rhs))
+                | Self::Operation(Subtract(lhs, rhs)) => lhs.walk(visitor) && rhs.walk(visitor),
 
-            Self::Operation(Assert(expr))
-            | Self::Operation(Factorial(expr))
-            | Self::Operation(IsNull(expr))
-            | Self::Operation(Negate(expr))
-            | Self::Operation(Not(expr)) => expr.walk(visitor),
+                Self::Operation(Assert(expr))
+                | Self::Operation(Factorial(expr))
+                | Self::Operation(IsNull(expr))
+                | Self::Operation(Negate(expr))
+                | Self::Operation(Not(expr)) => expr.walk(visitor),
 
-            Self::Function(_, exprs) => {
-                for expr in exprs {
-                    if !expr.walk(visitor) {
-                        return false;
+                Self::Function(_, exprs) => {
+                    for expr in exprs {
+                        if !expr.walk(visitor) {
+                            return false;
+                        }
                     }
+                    true
                 }
-                true
-            }
 
-            Self::Literal(_) | Self::Field(_, _) | Self::Column(_) => true,
-        }
+                Self::Literal(_) | Self::Field(_, _) | Self::Column(_) => true,
+            }
     }
 }

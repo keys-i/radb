@@ -20,8 +20,8 @@ use serde::{Deserialize, Serialize};
 pub trait Engine: std::fmt::Display + Send + Sync {
     /// The iterator returned by scan().
     type ScanIterator<'a>: ScanIterator + 'a
-        where
-            Self: Sized + 'a; // omit in trait objects, for object safety
+    where
+        Self: Sized + 'a; // omit in trait objects, for object safety
 
     /// Deletes a key, or does nothing if it does not exist.
     fn delete(&mut self, key: &[u8]) -> Result<()>;
@@ -34,8 +34,8 @@ pub trait Engine: std::fmt::Display + Send + Sync {
 
     /// Iterates over an ordered range of key/value pairs.
     fn scan(&mut self, range: impl std::ops::RangeBounds<Vec<u8>>) -> Self::ScanIterator<'_>
-        where
-            Self: Sized; // omit in trait objects, for object safety
+    where
+        Self: Sized; // omit in trait objects, for object safety
 
     /// Like scan, but can be used from trait objects. The iterator will use
     /// dynamic dispatch, which has a minor performance penalty.
@@ -46,8 +46,8 @@ pub trait Engine: std::fmt::Display + Send + Sync {
 
     /// Iterates over all key/value pairs starting with prefix.
     fn scan_prefix(&mut self, prefix: &[u8]) -> Self::ScanIterator<'_>
-        where
-            Self: Sized, // omit in trait objects, for object safety
+    where
+        Self: Sized, // omit in trait objects, for object safety
     {
         let start = std::ops::Bound::Included(prefix.to_vec());
         let end = match prefix.iter().rposition(|b| *b != 0xff) {

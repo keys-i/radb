@@ -671,7 +671,7 @@ impl InfixOperator {
             Self::Or => ast::Operation::Or(lhs, rhs),
             Self::Subtract => ast::Operation::Subtract(lhs, rhs),
         }
-            .into()
+        .into()
     }
 }
 
@@ -744,7 +744,7 @@ impl PostfixOperator {
             },
             Self::Factorial => ast::Operation::Factorial(lhs),
         }
-            .into()
+        .into()
     }
 }
 

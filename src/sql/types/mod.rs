@@ -122,7 +122,7 @@ impl std::fmt::Display for Value {
                 Self::Float(f) => f.to_string(),
                 Self::String(s) => s.clone(),
             }
-                .as_ref(),
+            .as_ref(),
         )
     }
 }
