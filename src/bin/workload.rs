@@ -169,7 +169,7 @@ impl Bank {
                 (1..=self.customers)
                     .flat_map(|c| (1..=self.customer_accounts).map(move |a| (c, a)))
                     .map(|(c, a)| (c, (c - 1) * self.customer_accounts + a))
-                    .map(|(c, a)| (format!("({}, {}, {})", a, c, Self::INITIAL_BALANCE)))
+                    .map(|(c, a)| format!("({}, {}, {})", a, c, Self::INITIAL_BALANCE))
                     .collect::<Vec<String>>()
                     .join(", ")
             ))
