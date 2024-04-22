@@ -1,0 +1,10 @@
+id: 1
+data_dir: radb1/data
+sync: false
+listen_sql: localhost:9601
+listen_raft: localhost:9701
+peers:
+  '2': localhost:9702
+  '3': localhost:9703
+  '4': localhost:9704
+  '5': localhost:9705
