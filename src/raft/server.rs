@@ -123,7 +123,7 @@ impl Server {
                 debug!("Raft peer {} connected", peer);
                 match Self::tcp_receive_peer(socket, peer_in_tx).await {
                     Ok(()) => debug!("Raft peer {} disconnected", peer),
-                    Err(err) => error!("Raft peer {} error: {}", peer, err.to_string()),
+                    Err(err) => error!("Raft peer {} error: {}", peer, err),
                 };
             });
         }

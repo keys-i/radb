@@ -68,14 +68,14 @@ pub struct ScanIterator<'a> {
     inner: std::collections::btree_map::Range<'a, Vec<u8>, Vec<u8>>,
 }
 
-impl<'a> ScanIterator<'a> {
+impl ScanIterator<'_> {
     fn map(item: (&Vec<u8>, &Vec<u8>)) -> <Self as Iterator>::Item {
         let (key, value) = item;
         Ok((key.clone(), value.clone()))
     }
 }
 
-impl<'a> Iterator for ScanIterator<'a> {
+impl Iterator for ScanIterator<'_> {
     type Item = Result<(Vec<u8>, Vec<u8>)>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -83,7 +83,7 @@ impl<'a> Iterator for ScanIterator<'a> {
     }
 }
 
-impl<'a> DoubleEndedIterator for ScanIterator<'a> {
+impl DoubleEndedIterator for ScanIterator<'_> {
     fn next_back(&mut self) -> Option<Self::Item> {
         self.inner.next_back().map(Self::map)
     }

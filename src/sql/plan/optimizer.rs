@@ -177,7 +177,7 @@ impl<'a, C: Catalog> IndexLookup<'a, C> {
     }
 }
 
-impl<'a, C: Catalog> Optimizer for IndexLookup<'a, C> {
+impl<C: Catalog> Optimizer for IndexLookup<'_, C> {
     fn optimize(&self, node: Node) -> Result<Node> {
         node.transform(&Ok, &|n| match n {
             Node::Scan { table, alias, filter: Some(filter) } => {

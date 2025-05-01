@@ -14,7 +14,7 @@ pub struct Parser<'a> {
     lexer: std::iter::Peekable<Lexer<'a>>,
 }
 
-impl<'a> Parser<'a> {
+impl Parser<'_> {
     /// Creates a new parser for the given string input
     pub fn new(query: &str) -> Parser {
         Parser { lexer: Lexer::new(query).peekable() }
@@ -569,8 +569,8 @@ impl<'a> Parser<'a> {
             }
             Token::String(s) => ast::Literal::String(s).into(),
             Token::Keyword(Keyword::False) => ast::Literal::Boolean(false).into(),
-            Token::Keyword(Keyword::Infinity) => ast::Literal::Float(std::f64::INFINITY).into(),
-            Token::Keyword(Keyword::NaN) => ast::Literal::Float(std::f64::NAN).into(),
+            Token::Keyword(Keyword::Infinity) => ast::Literal::Float(f64::INFINITY).into(),
+            Token::Keyword(Keyword::NaN) => ast::Literal::Float(f64::NAN).into(),
             Token::Keyword(Keyword::Null) => ast::Literal::Null.into(),
             Token::Keyword(Keyword::True) => ast::Literal::Boolean(true).into(),
             t => return Err(Error::Parse(format!("Expected expression atom, found {}", t))),

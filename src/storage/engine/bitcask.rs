@@ -156,14 +156,14 @@ pub struct ScanIterator<'a> {
     log: &'a mut Log,
 }
 
-impl<'a> ScanIterator<'a> {
+impl ScanIterator<'_> {
     fn map(&mut self, item: (&Vec<u8>, &(u64, u32))) -> <Self as Iterator>::Item {
         let (key, (value_pos, value_len)) = item;
         Ok((key.clone(), self.log.read_value(*value_pos, *value_len)?))
     }
 }
 
-impl<'a> Iterator for ScanIterator<'a> {
+impl Iterator for ScanIterator<'_> {
     type Item = Result<(Vec<u8>, Vec<u8>)>;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -171,7 +171,7 @@ impl<'a> Iterator for ScanIterator<'a> {
     }
 }
 
-impl<'a> DoubleEndedIterator for ScanIterator<'a> {
+impl DoubleEndedIterator for ScanIterator<'_> {
     fn next_back(&mut self) -> Option<Self::Item> {
         self.inner.next_back().map(|item| self.map(item))
     }
@@ -239,12 +239,7 @@ impl Log {
         if let Some(dir) = path.parent() {
             std::fs::create_dir_all(dir)?
         }
-        let file = std::fs::OpenOptions::new()
-            .read(true)
-            .write(true)
-            .create(true)
-            .append(true)
-            .open(&path)?;
+        let file = std::fs::OpenOptions::new().read(true).create(true).append(true).open(&path)?;
         file.try_lock_exclusive()?;
         Ok(Self { path, file })
     }
@@ -469,7 +464,6 @@ mod tests {
         Ok(())
     }
 
-
     #[test]
     /// Tests log compaction, by writing golden files of the before/after state,
     /// and checking that the database contains the same results, even after
@@ -535,7 +529,6 @@ mod tests {
 
         Ok(())
     }
-
 
     #[test]
     /// Tests that exclusive locks are taken out on log files, released when the

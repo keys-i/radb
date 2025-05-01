@@ -340,7 +340,7 @@ enum Key<'a> {
     Row(Cow<'a, str>, Cow<'a, Value>),
 }
 
-impl<'a> Key<'a> {
+impl Key<'_> {
     fn encode(self) -> Result<Vec<u8>> {
         keycode::serialize(&self)
     }
@@ -362,7 +362,7 @@ enum KeyPrefix<'a> {
     Row(Cow<'a, str>),
 }
 
-impl<'a> KeyPrefix<'a> {
+impl KeyPrefix<'_> {
     fn encode(self) -> Result<Vec<u8>> {
         keycode::serialize(&self)
     }

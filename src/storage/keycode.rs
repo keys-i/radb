@@ -74,7 +74,7 @@ struct Serializer {
     output: Vec<u8>,
 }
 
-impl<'a> serde::Serializer for &'a mut Serializer {
+impl serde::Serializer for &mut Serializer {
     type Ok = ();
     type Error = Error;
 
@@ -271,7 +271,7 @@ impl<'a> serde::Serializer for &'a mut Serializer {
 }
 
 // Sequences simply concatenate the serialized elements, with no external structure.
-impl<'a> ser::SerializeSeq for &'a mut Serializer {
+impl ser::SerializeSeq for &mut Serializer {
     type Ok = ();
     type Error = Error;
 
@@ -285,7 +285,7 @@ impl<'a> ser::SerializeSeq for &'a mut Serializer {
 }
 
 // Tuples, like sequences, simply concatenate the serialized elements.
-impl<'a> ser::SerializeTuple for &'a mut Serializer {
+impl ser::SerializeTuple for &mut Serializer {
     type Ok = ();
     type Error = Error;
 
@@ -299,7 +299,7 @@ impl<'a> ser::SerializeTuple for &'a mut Serializer {
 }
 
 // Tuples, like sequences, simply concatenate the serialized elements.
-impl<'a> ser::SerializeTupleVariant for &'a mut Serializer {
+impl ser::SerializeTupleVariant for &mut Serializer {
     type Ok = ();
     type Error = Error;
 
@@ -363,7 +363,7 @@ impl<'de> Deserializer<'de> {
 }
 
 // For details on serialization formats, see Serializer.
-impl<'de, 'a> serde::Deserializer<'de> for &'a mut Deserializer<'de> {
+impl<'de> serde::Deserializer<'de> for &mut Deserializer<'de> {
     type Error = Error;
 
     fn deserialize_any<V: de::Visitor<'de>>(self, _: V) -> Result<V::Value> {

@@ -216,7 +216,7 @@ impl<'a> Deref for PoolClient<'a> {
     }
 }
 
-impl<'a> Drop for PoolClient<'a> {
+impl Drop for PoolClient<'_> {
     fn drop(&mut self) {
         if self.txn().is_some() {
             // FIXME This should disconnect or destroy the client if it errors.

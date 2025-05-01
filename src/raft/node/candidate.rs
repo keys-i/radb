@@ -133,7 +133,7 @@ impl RawNode<Candidate> {
             // so we shouldn't see these.
             Event::ConfirmLeader { .. }
             | Event::AcceptEntries { .. }
-            | Event::RejectEntries { .. }
+            | Event::RejectEntries
             | Event::ClientResponse { .. } => panic!("Received unexpected message {:?}", msg),
         }
         Ok(self.into())

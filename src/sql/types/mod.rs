@@ -54,7 +54,7 @@ impl Hash for Value {
     }
 }
 
-impl<'a> From<Value> for Cow<'a, Value> {
+impl From<Value> for Cow<'_, Value> {
     fn from(v: Value) -> Self {
         Cow::Owned(v)
     }

@@ -74,7 +74,7 @@ impl NestedLoopRows {
             left,
             right: Box::new(right.clone().into_iter()),
             right_vec: right,
-            right_empty: std::iter::repeat(Value::Null).take(right_width).collect(),
+            right_empty: std::iter::repeat_n(Value::Null, right_width).collect(),
             right_hit: false,
             predicate,
             outer,
@@ -175,7 +175,7 @@ impl<T: Transaction> Executor<T> for HashJoin<T> {
                         Err(err) => Err(err),
                     })
                     .collect::<Result<_>>()?;
-                let empty = std::iter::repeat(Value::Null).take(rcolumns.len());
+                let empty = std::iter::repeat_n(Value::Null, rcolumns.len());
                 columns.extend(rcolumns);
                 let rows = Box::new(rows.filter_map(move |res| match res {
                     Ok(row) if row.len() <= l => {

@@ -239,9 +239,9 @@ impl RawNode<Follower> {
             }
 
             // We're not a leader nor candidate in this term, so we shouldn't see these.
-            Event::ConfirmLeader { .. }
-            | Event::AcceptEntries { .. }
-            | Event::RejectEntries { .. } => panic!("Received unexpected message {:?}", msg),
+            Event::ConfirmLeader { .. } | Event::AcceptEntries { .. } | Event::RejectEntries => {
+                panic!("Received unexpected message {:?}", msg)
+            }
         };
         Ok(self.into())
     }

@@ -216,7 +216,7 @@ enum KeyPrefix<'a> {
     Unversioned,
 }
 
-impl<'a> KeyPrefix<'a> {
+impl KeyPrefix<'_> {
     fn encode(&self) -> Result<Vec<u8>> {
         keycode::serialize(&self)
     }
@@ -349,7 +349,7 @@ impl TransactionState {
     /// that version commits its writes. See the module documentation for
     /// details.
     fn is_visible(&self, version: Version) -> bool {
-        if self.active.get(&version).is_some() {
+        if self.active.contains(&version) {
             false
         } else if self.read_only {
             version < self.version
@@ -706,14 +706,14 @@ impl<'a, E: Engine + 'a> ScanIterator<'a, E> {
     }
 }
 
-impl<'a, E: Engine> Iterator for ScanIterator<'a, E> {
+impl<E: Engine> Iterator for ScanIterator<'_, E> {
     type Item = Result<(Vec<u8>, Vec<u8>)>;
     fn next(&mut self) -> Option<Self::Item> {
         self.try_next().transpose()
     }
 }
 
-impl<'a, E: Engine> DoubleEndedIterator for ScanIterator<'a, E> {
+impl<E: Engine> DoubleEndedIterator for ScanIterator<'_, E> {
     fn next_back(&mut self) -> Option<Self::Item> {
         self.try_next_back().transpose()
     }
@@ -770,14 +770,14 @@ impl<'a, E: Engine + 'a> VersionIterator<'a, E> {
     }
 }
 
-impl<'a, E: Engine> Iterator for VersionIterator<'a, E> {
+impl<E: Engine> Iterator for VersionIterator<'_, E> {
     type Item = Result<(Vec<u8>, Version, Vec<u8>)>;
     fn next(&mut self) -> Option<Self::Item> {
         self.try_next().transpose()
     }
 }
 
-impl<'a, E: Engine> DoubleEndedIterator for VersionIterator<'a, E> {
+impl<E: Engine> DoubleEndedIterator for VersionIterator<'_, E> {
     fn next_back(&mut self) -> Option<Self::Item> {
         self.try_next_back().transpose()
     }
