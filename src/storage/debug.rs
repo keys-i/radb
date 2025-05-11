@@ -119,7 +119,10 @@ impl<E: engine::Engine> Engine<E> {
 }
 
 impl<E: engine::Engine> engine::Engine for Engine<E> {
-    type ScanIterator<'a> = E::ScanIterator<'a> where E: 'a;
+    type ScanIterator<'a>
+        = E::ScanIterator<'a>
+    where
+        E: 'a;
 
     fn flush(&mut self) -> Result<()> {
         self.inner.flush()
