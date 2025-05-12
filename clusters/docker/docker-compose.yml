@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  radb1:
+    image: radb1:latest
+    container_name: radb1
+    ports:
+      - "9601:9601"
+      - "9701:9701"
+
+  radb2:
+    image: radb2:latest
+    container_name: radb2
+    ports:
+      - "9602:9602"
+      - "9702:9702"
+
+  radb3:
+    image: radb3:latest
+    container_name: radb3
+    ports:
+      - "9603:9603"
+      - "9703:9703"
+
+  radb4:
+    image: radb4:latest
+    container_name: radb4
+    ports:
+      - "9604:9604"
+      - "9704:9704"
+
+  radb5:
+    image: radb5:latest
+    container_name: radb5
+    ports:
+      - "9605:9605"
+      - "9705:9705"
