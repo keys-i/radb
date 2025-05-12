@@ -25,7 +25,7 @@
 //! A transaction t2 that started at T=2 will see the values a=a1, c=c1, d=d1. A
 //! different transaction t5 running at T=5 will see a=a4, b=b3, c=c1.
 //!
-//! ToyDB uses logical timestamps with a sequence number stored in
+//! raDB uses logical timestamps with a sequence number stored in
 //! Key::NextVersion. Each new read-write transaction takes its timestamp from
 //! the current value of Key::NextVersion and then increments the value for the
 //! next transaction.
@@ -135,7 +135,7 @@
 //!
 //! Normally, old versions would be garbage collected regularly, when they are
 //! no longer needed by active transactions or time-travel queries. However,
-//! ToyDB does not implement garbage collection, instead keeping all history
+//! raDB does not implement garbage collection, instead keeping all history
 //! forever, both out of laziness and also because it allows unlimited time
 //! travel queries (it's a feature, not a bug!).
 

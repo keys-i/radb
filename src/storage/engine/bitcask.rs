@@ -22,14 +22,14 @@ use std::path::PathBuf;
 /// - Instead of writing multiple fixed-size log files, it uses a single
 ///   append-only log file of arbitrary size. This increases the compaction
 ///   volume, since the entire log file must be rewritten on every compaction,
-///   and can exceed the filesystem's file size limit, but ToyDB databases are
+///   and can exceed the filesystem's file size limit, but raDB databases are
 ///   expected to be small.
 ///
-/// - Compactions lock the database for reads and writes. This is ok since ToyDB
+/// - Compactions lock the database for reads and writes. This is ok since raDB
 ///   only compacts during node startup and files are expected to be small.
 ///
 /// - Hint files are not used, the log itself is scanned when opened to
-///   build the keydir. Hint files only omit values, and ToyDB values are
+///   build the keydir. Hint files only omit values, and raDB values are
 ///   expected to be small, so the hint files would be nearly as large as
 ///   the compacted log files themselves.
 ///

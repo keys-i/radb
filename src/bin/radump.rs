@@ -1,4 +1,4 @@
-//! toydump is a debug tool that prints a radb BitCask database in
+//! radump is a debug tool that prints a radb BitCask database in
 //! human-readable form. It only prints live BitCask data, not garbage entries.
 #![warn(clippy::all)]
 
