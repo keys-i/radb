@@ -4,22 +4,78 @@ permissions:
   contents: read
 
 jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.toolchain.outputs.cachekey }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@1.86.0
+        id: toolchain
+        with:
+          components: clippy, rustfmt
+      - id: cache-key
+        run: echo "key=${{ steps.toolchain.outputs.cachekey }}" >> $GITHUB_OUTPUT
+
+  build:
+    name: Build
+    needs: setup
+    runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ needs.setup.outputs.cache-key }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@1.86.0
+        with:
+          components: clippy, rustfmt
+      - uses: actions/cache@v3
+        with:
+          path: target
+          key: ${{ runner.os }}-target-${{ needs.setup.outputs.cache-key }}-${{ hashFiles('Cargo.lock') }}
+      - run: cargo build --tests
+
   test:
     name: Test
+    needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
-    - uses: actions/checkout@v3
-    - uses: dtolnay/rust-toolchain@1.77.0
-      id: toolchain
-      with:
-        components: clippy, rustfmt
-    - uses: actions/cache@v3
-      with:
-        path: target
-        key: ${{runner.os}}-target-${{steps.toolchain.outputs.cachekey}}-${{hashFiles('Cargo.lock')}}
-    - run: cargo build --tests
-    - run: cargo test
-    - run: cargo clippy --tests --no-deps -- -D warnings
-    - run: cargo fmt --check
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@1.86.0
+        with:
+          components: clippy, rustfmt
+      - uses: actions/cache@v3
+        with:
+          path: target
+          key: ${{ runner.os }}-target-${{ needs.build.outputs.cache-key }}-${{ hashFiles('Cargo.lock') }}
+      - run: cargo test
+
+  clippy:
+    name: Clippy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@1.86.0
+        with:
+          components: clippy
+      - uses: actions/cache@v3
+        with:
+          path: target
+          key: ${{ runner.os }}-target-${{ needs.build.outputs.cache-key }}-${{ hashFiles('Cargo.lock') }}
+      - run: cargo clippy --tests --no-deps -- -D warnings
+
+  fmt:
+    name: Format Check
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@1.86.0
+        with:
+          components: rustfmt
+      - uses: actions/cache@v3
+        with:
+          path: target
+          key: ${{ runner.os }}-target-${{ needs.build.outputs.cache-key }}-${{ hashFiles('Cargo.lock') }}
+      - run: cargo fmt --check
