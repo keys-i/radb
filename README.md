@@ -1,6 +1,7 @@
 # raDB
 
 [![CI](https://github.com/radhesh1/radb/actions/workflows/ci.yml/badge.svg)](https://github.com/erikgrinaker/radb/actions/workflows/ci.yml)
+[![Release](https://github.com/keys-i/radb/actions/workflows/release.yml/badge.svg)](https://github.com/keys-i/radb/actions/workflows/release.yml)
 
 Distributed SQL database in Rust, written as a learning project. Most components are built from
 scratch, including:
@@ -34,7 +35,7 @@ Usage
 $$
 </span>
 
-With a [Rust compiler](https://www.rust-lang.org/tools/install) installed, a local five-node 
+With a [Rust compiler](https://www.rust-lang.org/tools/install) installed, a local five-node
 cluster can be started on `localhost` ports `9601` to `9605`:
 
 ```
@@ -71,7 +72,7 @@ of in-code unit-tests for many low-level components, golden master integration t
 engine under [`tests/sql`](./tests/sql), and a
 basic set of end-to-end cluster tests under
 [`tests/`](../tests).
-[Jepsen tests](https://jepsen.io), or similar system-wide correctness and reliability tests, are 
+[Jepsen tests](https://jepsen.io), or similar system-wide correctness and reliability tests, are
 desirable but not yet implemented.
 
 Execute `cargo test` to run all tests, or check out the latest
