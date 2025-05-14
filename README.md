@@ -31,7 +31,7 @@ database internals.
 
 ## <span class="texcenter">
 $$
-Usage
+ Usage
 $$
 </span>
 
