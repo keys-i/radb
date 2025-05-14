@@ -54,7 +54,7 @@ jobs:
           cp -v target/release/radb dist/bin/ || true
           cp -v target/release/radump dist/bin/ || true
           cp -v target/release/rasql dist/bin/ || true
-          cp -rv cluster/docker dist/nodes
+          cp -rv clusters/docker dist/nodes
 
       - name: Package binary
         run: |
