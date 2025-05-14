@@ -30,7 +30,16 @@ jobs:
           path: target
           key: ${{ runner.os }}-target-${{ hashFiles('Cargo.lock') }}
 
-      - run: cargo test
+      - name: Run tests (Unix)
+        if: runner.os != 'Windows'
+        run: cargo test
+      
+      - name: Run tests and update goldenfiles (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          set UPDATE_GOLDENFILES=1
+          cargo test
+      
       - run: cargo build --release
 
       - name: Set archive name
