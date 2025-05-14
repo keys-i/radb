@@ -1,6 +1,8 @@
 # raDB
 
 [![CI](https://github.com/radhesh1/radb/actions/workflows/ci.yml/badge.svg)](https://github.com/erikgrinaker/radb/actions/workflows/ci.yml)
+[![Release](https://github.com/keys-i/radb/actions/workflows/release.yml/badge.svg)](https://github.com/keys-i/radb/actions/workflows/release.yml)
+
 
 Distributed SQL database in Rust, written as a learning project. Most components are built from
 scratch, including:
