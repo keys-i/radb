@@ -1,8 +1,7 @@
 use super::super::types::DataType;
 use crate::error::Result;
 
-use std::collections::BTreeMap;
-use std::mem::replace;
+use std::{collections::BTreeMap, mem::replace};
 
 /// Statements
 #[derive(Clone, Debug, PartialEq)]

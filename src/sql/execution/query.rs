@@ -1,7 +1,11 @@
-use super::super::engine::Transaction;
-use super::super::plan::Direction;
-use super::super::types::{Column, Expression, Row, Value};
-use super::{Executor, ResultSet};
+use super::{
+    super::{
+        engine::Transaction,
+        plan::Direction,
+        types::{Column, Expression, Row, Value},
+    },
+    {Executor, ResultSet},
+};
 use crate::error::{Error, Result};
 
 /// A filter executor

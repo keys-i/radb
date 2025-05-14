@@ -1,5 +1,7 @@
-use crate::error::{Error, Result};
-use crate::storage::{self, bincode, keycode};
+use crate::{
+    error::{Error, Result},
+    storage::{self, bincode, keycode},
+};
 
 use ::log::debug;
 use serde::{Deserialize, Serialize};

@@ -4,8 +4,7 @@ use crate::error::{Error, Result};
 use log::{debug, error};
 use std::collections::{BTreeMap, HashMap, HashSet};
 use tokio::sync::mpsc;
-use tokio_stream::wrappers::UnboundedReceiverStream;
-use tokio_stream::StreamExt as _;
+use tokio_stream::{wrappers::UnboundedReceiverStream, StreamExt as _};
 
 /// A Raft-managed state machine.
 pub trait State: Send {

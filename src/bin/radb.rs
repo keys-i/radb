@@ -4,8 +4,10 @@
 
 #![warn(clippy::all)]
 
-use radb::error::{Error, Result};
-use radb::{raft, sql, storage, Server};
+use radb::{
+    error::{Error, Result},
+    {raft, sql, storage, Server},
+};
 use serde_derive::Deserialize;
 use std::collections::HashMap;
 

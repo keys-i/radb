@@ -5,13 +5,17 @@
 
 #![warn(clippy::all)]
 
-use radb::error::{Error, Result};
-use radb::sql::execution::ResultSet;
-use radb::sql::parser::{Lexer, Token};
-use radb::Client;
-use rustyline::history::DefaultHistory;
-use rustyline::validate::{ValidationContext, ValidationResult, Validator};
-use rustyline::{error::ReadlineError, Editor, Modifiers};
+use radb::{
+    error::{Error, Result},
+    sql::execution::ResultSet,
+    sql::parser::{Lexer, Token},
+    Client,
+};
+use rustyline::{
+    history::DefaultHistory,
+    validate::{ValidationContext, ValidationResult, Validator},
+    {error::ReadlineError, Editor, Modifiers},
+};
 use rustyline_derive::{Completer, Helper, Highlighter, Hinter};
 
 #[tokio::main]

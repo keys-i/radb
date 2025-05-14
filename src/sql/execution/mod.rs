@@ -12,9 +12,11 @@ use query::{Filter, Limit, Offset, Order, Projection};
 use schema::{CreateTable, DropTable};
 use source::{IndexLookup, KeyLookup, Nothing, Scan};
 
-use super::engine::Transaction;
-use super::plan::Node;
-use super::types::{Columns, Row, Rows, Value};
+use super::{
+    engine::Transaction,
+    plan::Node,
+    types::{Columns, Row, Rows, Value},
+};
 use crate::error::{Error, Result};
 
 use derivative::Derivative;

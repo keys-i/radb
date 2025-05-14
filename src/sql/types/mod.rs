@@ -4,9 +4,11 @@ pub use expression::Expression;
 use crate::error::{Error, Result};
 
 use serde_derive::{Deserialize, Serialize};
-use std::borrow::Cow;
-use std::cmp::Ordering;
-use std::hash::{Hash, Hasher};
+use std::{
+    borrow::Cow,
+    cmp::Ordering,
+    hash::{Hash, Hasher},
+};
 
 /// A datatype
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]

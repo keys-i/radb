@@ -1,6 +1,7 @@
-use super::super::engine::Transaction;
-use super::super::schema::Table;
-use super::{Executor, ResultSet};
+use super::{
+    super::{engine::Transaction, schema::Table},
+    {Executor, ResultSet},
+};
 use crate::error::Result;
 
 /// A CREATE TABLE executor

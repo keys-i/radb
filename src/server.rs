@@ -1,19 +1,22 @@
 use crate::error::{Error, Result};
 use crate::raft;
 use crate::sql;
-use crate::sql::engine::Engine as _;
-use crate::sql::execution::ResultSet;
-use crate::sql::schema::{Catalog as _, Table};
-use crate::sql::types::Row;
+use crate::sql::{
+    engine::Engine as _,
+    execution::ResultSet,
+    schema::{Catalog as _, Table},
+    types::Row,
+};
 
 use ::log::{debug, error, info};
 use futures::sink::SinkExt as _;
 use serde_derive::{Deserialize, Serialize};
 use std::collections::HashMap;
-use tokio::net::{TcpListener, TcpStream};
-use tokio::sync::mpsc;
-use tokio_stream::wrappers::TcpListenerStream;
-use tokio_stream::StreamExt as _;
+use tokio::{
+    net::{TcpListener, TcpStream},
+    sync::mpsc,
+};
+use tokio_stream::{wrappers::TcpListenerStream, StreamExt as _};
 use tokio_util::codec::{Framed, LengthDelimitedCodec};
 
 /// A raDB server.

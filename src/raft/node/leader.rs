@@ -1,5 +1,7 @@
-use super::super::{Address, Event, Index, Instruction, Message, Request, Status};
-use super::{Follower, Node, NodeID, RawNode, Role, Term, Ticks, HEARTBEAT_INTERVAL};
+use super::{
+    super::{Address, Event, Index, Instruction, Message, Request, Status},
+    {Follower, Node, NodeID, RawNode, Role, Term, Ticks, HEARTBEAT_INTERVAL},
+};
 use crate::error::Result;
 
 use ::log::{debug, info};

@@ -1,5 +1,7 @@
-use super::super::schema::Catalog;
-use super::super::types::{Expression, Value};
+use super::super::{
+    schema::Catalog,
+    types::{Expression, Value},
+};
 use super::Node;
 use crate::error::Result;
 

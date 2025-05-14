@@ -2,9 +2,11 @@
 
 use std::collections::HashSet;
 
-use super::bincode;
-use super::engine::{self, ScanIterator, Status};
-use super::mvcc::{self, TransactionState};
+use super::{
+    bincode,
+    engine::{self, ScanIterator, Status},
+    mvcc::{self, TransactionState},
+};
 use crate::error::Result;
 
 /// Formats a raw byte string, either as a UTF-8 string (if valid and

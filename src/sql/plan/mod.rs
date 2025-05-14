@@ -3,11 +3,13 @@ mod planner;
 use optimizer::Optimizer as _;
 use planner::Planner;
 
-use super::engine::Transaction;
-use super::execution::{Executor, ResultSet};
-use super::parser::ast;
-use super::schema::{Catalog, Table};
-use super::types::{Expression, Value};
+use super::{
+    engine::Transaction,
+    execution::{Executor, ResultSet},
+    parser::ast,
+    schema::{Catalog, Table},
+    types::{Expression, Value},
+};
 use crate::error::Result;
 
 use serde_derive::{Deserialize, Serialize};

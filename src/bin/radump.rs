@@ -2,9 +2,11 @@
 //! human-readable form. It only prints live BitCask data, not garbage entries.
 #![warn(clippy::all)]
 
-use radb::error::{Error, Result};
-use radb::storage::debug;
-use radb::storage::engine::{BitCask, Engine};
+use radb::{
+    error::{Error, Result},
+    storage::debug,
+    storage::engine::{BitCask, Engine},
+};
 
 fn main() -> Result<()> {
     let args = clap::command!()

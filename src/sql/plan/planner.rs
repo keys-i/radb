@@ -1,11 +1,15 @@
-use super::super::parser::ast;
-use super::super::schema::{Catalog, Column, Table};
-use super::super::types::{Expression, Value};
+use super::super::{
+    parser::ast,
+    schema::{Catalog, Column, Table},
+    types::{Expression, Value},
+};
 use super::{Aggregate, Direction, Node, Plan};
 use crate::error::{Error, Result};
 
-use std::collections::{HashMap, HashSet};
-use std::mem::replace;
+use std::{
+    collections::{HashMap, HashSet},
+    mem::replace,
+};
 
 /// A query plan builder.
 pub struct Planner<'a, C: Catalog> {

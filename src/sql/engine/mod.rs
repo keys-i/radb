@@ -4,11 +4,13 @@ pub mod raft;
 pub use kv::KV;
 pub use raft::{Raft, Status};
 
-use super::execution::ResultSet;
-use super::parser::{ast, Parser};
-use super::plan::Plan;
-use super::schema::Catalog;
-use super::types::{Expression, Row, Value};
+use super::{
+    execution::ResultSet,
+    parser::{ast, Parser},
+    plan::Plan,
+    schema::Catalog,
+    types::{Expression, Row, Value},
+};
 use crate::error::{Error, Result};
 
 use std::collections::HashSet;

@@ -1,9 +1,15 @@
-use super::super::schema::{Catalog, Table, Tables};
-use super::super::types::{Expression, Row, Value};
-use super::{Engine as _, IndexScan, Scan, Transaction as _};
-use crate::error::{Error, Result};
-use crate::raft::{self, Entry};
-use crate::storage::{self, bincode, mvcc::TransactionState};
+use super::{
+    super::{
+        schema::{Catalog, Table, Tables},
+        types::{Expression, Row, Value},
+    },
+    {Engine as _, IndexScan, Scan, Transaction as _},
+};
+use crate::{
+    error::{Error, Result},
+    raft::{self, Entry},
+    storage::{self, bincode, mvcc::TransactionState},
+};
 
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use std::collections::HashSet;

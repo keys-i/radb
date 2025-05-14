@@ -3,8 +3,10 @@ use crate::error::{Error, Result};
 
 use regex::Regex;
 use serde_derive::{Deserialize, Serialize};
-use std::fmt::{self, Display};
-use std::mem::replace;
+use std::{
+    fmt::{self, Display},
+    mem::replace,
+};
 
 /// An expression, made up of constants and operations
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

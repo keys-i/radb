@@ -1,11 +1,14 @@
-use super::super::engine::Transaction;
-use super::super::plan::Aggregate;
-use super::super::types::{Column, Value};
-use super::{Executor, ResultSet};
+use super::{
+    super::{
+        engine::Transaction,
+        plan::Aggregate,
+        types::{Column, Value},
+    },
+    {Executor, ResultSet},
+};
 use crate::error::{Error, Result};
 
-use std::cmp::Ordering;
-use std::collections::HashMap;
+use std::{cmp::Ordering, collections::HashMap};
 
 /// An aggregation executor
 pub struct Aggregation<T: Transaction> {

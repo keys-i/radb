@@ -143,10 +143,12 @@ use super::{bincode, engine::Engine, keycode};
 use crate::error::{Error, Result};
 
 use serde::{Deserialize, Serialize};
-use std::borrow::Cow;
-use std::collections::HashSet;
-use std::ops::{Bound, RangeBounds};
-use std::sync::{Arc, Mutex, MutexGuard};
+use std::{
+    borrow::Cow,
+    collections::HashSet,
+    ops::{Bound, RangeBounds},
+    sync::{Arc, Mutex, MutexGuard},
+};
 
 /// An MVCC version represents a logical timestamp. The latest version
 /// is incremented when beginning each read-write transaction.

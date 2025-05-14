@@ -1,7 +1,11 @@
-use super::super::engine::Transaction;
-use super::super::schema::Table;
-use super::super::types::{Expression, Row, Value};
-use super::{Executor, ResultSet};
+use super::{
+    super::{
+        engine::Transaction,
+        schema::Table,
+        types::{Expression, Row, Value},
+    },
+    {Executor, ResultSet},
+};
 use crate::error::{Error, Result};
 
 use std::collections::{HashMap, HashSet};

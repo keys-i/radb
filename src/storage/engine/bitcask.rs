@@ -2,8 +2,10 @@ use super::{Engine, Status};
 use crate::error::Result;
 
 use fs4::FileExt;
-use std::io::{BufReader, BufWriter, Read, Seek, SeekFrom, Write};
-use std::path::PathBuf;
+use std::{
+    io::{BufReader, BufWriter, Read, Seek, SeekFrom, Write},
+    path::PathBuf,
+};
 
 /// A very simple variant of BitCask, itself a very simple log-structured
 /// key-value engine used e.g. by the Riak database. It is not compatible with

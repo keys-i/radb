@@ -1,5 +1,7 @@
-use super::super::{Address, Event, Message};
-use super::{rand_election_timeout, Follower, Leader, Node, NodeID, RawNode, Role, Term, Ticks};
+use super::{
+    super::{Address, Event, Message},
+    {rand_election_timeout, Follower, Leader, Node, NodeID, RawNode, Role, Term, Ticks},
+};
 use crate::error::{Error, Result};
 
 use ::log::{debug, info};

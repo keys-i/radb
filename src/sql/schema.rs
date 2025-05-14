@@ -1,6 +1,8 @@
-use super::engine::Transaction;
-use super::parser::format_ident;
-use super::types::{DataType, Value};
+use super::{
+    engine::Transaction,
+    parser::format_ident,
+    types::{DataType, Value},
+};
 use crate::error::{Error, Result};
 
 use serde_derive::{Deserialize, Serialize};

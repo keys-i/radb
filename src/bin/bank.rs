@@ -18,12 +18,12 @@
 #![warn(clippy::all)]
 
 use futures::stream::TryStreamExt as _;
-use radb::client::Pool;
-use radb::error::{Error, Result};
-use rand::distributions::Distribution;
-use rand::Rng as _;
-use std::cell::Cell;
-use std::rc::Rc;
+use radb::{
+    client::Pool,
+    error::{Error, Result},
+};
+use rand::{distributions::Distribution, Rng as _};
+use std::{cell::Cell, rc::Rc};
 use tokio::net::ToSocketAddrs;
 
 #[tokio::main]

@@ -1,7 +1,6 @@
 use crate::error::{Error, Result};
 
-use std::iter::Peekable;
-use std::str::Chars;
+use std::{iter::Peekable, str::Chars};
 
 // A lexer token
 #[derive(Clone, Debug, PartialEq)]
