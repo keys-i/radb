@@ -1,4 +1,4 @@
-name: Code Check
+name: Code check
 
 on: [push, pull_request, workflow_dispatch]
 permissions:
