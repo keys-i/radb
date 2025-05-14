@@ -36,10 +36,11 @@ jobs:
       
       - name: Run tests and update goldenfiles (Windows)
         if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          set UPDATE_GOLDENFILES=1
+          $env:UPDATE_GOLDENFILES = "1"
           cargo test
-      
+
       - run: cargo build --release
 
       - name: Set archive name
