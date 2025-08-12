@@ -233,6 +233,7 @@ impl Parser<'_> {
     }
 
     /// Parses an insert statement
+    // TODO: Refactor this to have less bumps
     fn parse_statement_insert(&mut self) -> Result<ast::Statement> {
         self.next_expect(Some(Keyword::Insert.into()))?;
         self.next_expect(Some(Keyword::Into.into()))?;
@@ -321,6 +322,7 @@ impl Parser<'_> {
     }
 
     /// Parses a transaction statement
+    // TODO: Refactor this to have less bumps
     fn parse_transaction(&mut self) -> Result<ast::Statement> {
         match self.next()? {
             Token::Keyword(Keyword::Begin) => {
@@ -528,6 +530,7 @@ impl Parser<'_> {
     }
 
     /// Parses an expression atom
+    // TODO: make less nested
     fn parse_expression_atom(&mut self) -> Result<ast::Expression> {
         Ok(match self.next()? {
             Token::Ident(i) => {
