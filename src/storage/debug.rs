@@ -2,6 +2,8 @@
 
 use std::collections::HashSet;
 
+use serde::de::DeserializeOwned;
+
 use super::{
     bincode,
     engine::{self, ScanIterator, Status},
@@ -41,6 +43,10 @@ pub fn format_hashset<T: Copy + Ord + std::fmt::Display>(set: &HashSet<T>) -> St
     format!("{{{}}}", elements.join(","))
 }
 
+fn de<T: DeserializeOwned>(bytes: Option<&[u8]>) -> Option<T> {
+    bytes.and_then(|b| bincode::deserialize(b).ok())
+}
+
 /// Formats a raw engine key/value pair, or just the key if the value is None.
 /// Attempts to decode known MVCC key formats and values.
 ///
@@ -51,37 +57,31 @@ pub fn format_key_value(key: &[u8], value: &Option<Vec<u8>>) -> (String, Option<
     let mut fvalue = value.as_ref().map(|v| format_raw(v.as_slice()));
 
     // Try to decode MVCC keys and values.
-    if let Ok(key) = mvcc::Key::decode(key) {
+    if let Ok(decoded_key) = mvcc::Key::decode(key) {
         // Use the debug formatting of the key, unless we need more.
-        fkey = format!("{:?}", key);
-
-        match key {
+        match decoded_key {
             mvcc::Key::NextVersion => {
-                if let Some(ref v) = value {
-                    if let Ok(v) = bincode::deserialize::<u64>(v) {
-                        fvalue = Some(format!("{}", v))
-                    }
+                fkey = format!("{decoded_key:?}");
+                if let Some(v) = de::<u64>(value.as_deref()) {
+                    fvalue = Some(v.to_string());
                 }
             }
-            mvcc::Key::TxnActive(_) => {}
+            mvcc::Key::TxnActive(_) => fkey = format!("{decoded_key:?}"),
             mvcc::Key::TxnActiveSnapshot(_) => {
-                if let Some(ref v) = value {
-                    if let Ok(active) = bincode::deserialize::<HashSet<u64>>(v) {
-                        fvalue = Some(format_hashset(&active));
-                    }
+                fkey = format!("{decoded_key:?}");
+                if let Some(active) = de::<HashSet<u64>>(value.as_deref()) {
+                    fvalue = Some(format_hashset(&active));
                 }
             }
             mvcc::Key::TxnWrite(version, userkey) => {
-                fkey = format!("TxnWrite({}, {})", version, format_raw(&userkey))
+                fkey = format!("TxnWrite({version}, {})", format_raw(&userkey))
             }
             mvcc::Key::Version(userkey, version) => {
-                fkey = format!("Version({}, {})", format_raw(&userkey), version);
-                if let Some(ref v) = value {
-                    match bincode::deserialize(v) {
-                        Ok(Some(v)) => fvalue = Some(format_raw(v)),
-                        Ok(None) => fvalue = Some(String::from("None")),
-                        Err(_) => {}
-                    }
+                fkey = format!("Version({}, {version})", format_raw(&userkey));
+                match de::<Option<Vec<u8>>>(value.as_deref()) {
+                    Some(Some(v)) => fvalue = Some(format_raw(&v)),
+                    Some(None) => fvalue = Some("None".to_string()),
+                    None => {}
                 }
             }
             mvcc::Key::Unversioned(userkey) => {
